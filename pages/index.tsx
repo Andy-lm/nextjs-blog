@@ -3,12 +3,23 @@ import Link from "next/link";
 import { Tooltip } from "antd";
 import "antd/dist/antd.css";
 import Layout, { siteTitle } from "../components/layout";
+import jpg from "assets/images/gzh.jpg";
+import Image from "next/image";
 import { getSortedPostsData } from "../lib/posts";
-import utilStyles from "../styles/utils.module.css";
-import styles from "./index.module.css";
+import utilStyles from "styles/utils.module.scss";
+import styles from "./index.module.scss";
 import Date from "../components/date";
+import { NextPage } from "next";
 
-export default function Home({ allPostsData }) {
+type Props = {
+  allPostsData: {
+    id: string;
+    title: string;
+    date: string;
+  }[];
+};
+
+const Home: NextPage<Props> = ({ allPostsData }) => {
   return (
     <Layout home>
       <Head>
@@ -18,7 +29,7 @@ export default function Home({ allPostsData }) {
         <p>
           你好我是南橘北枳，是一名前端程序员，热爱学习、热爱分享，欢迎关注我的微信公众号「
           <Tooltip
-            title={<img src="/images/gzh.jpg"></img>}
+            title={<Image src={jpg}></Image>}
             placement="bottom"
             color="#fff"
           >
@@ -53,13 +64,14 @@ export default function Home({ allPostsData }) {
       </section>
     </Layout>
   );
-}
+};
 
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
+  const allPostsData = await getSortedPostsData();
   return {
     props: {
       allPostsData,
     },
   };
 }
+export default Home;
