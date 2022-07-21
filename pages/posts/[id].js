@@ -23,6 +23,8 @@ export default function Post({ postData }) {
 
 /**
  * 返回由文件路径组成的一个数组，作为该文件可能的名称
+ * 个人感觉对于getStaticPaths返回的就是代表该文件的所有路由了，
+ * 在该页面的路由匹配时将对应的参数传递给getStaticProps方法
  * @returns {
  * path:[ { params: { id: 'npx' } }, { params: { id: '说说这一年的一些感想' } } ],
  * fallback:false
